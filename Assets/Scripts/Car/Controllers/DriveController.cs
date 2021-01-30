@@ -1,6 +1,4 @@
-﻿using KartRacer.Car;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using UnityEngine;
 
 namespace KartRacer.Car.Controllers
@@ -72,7 +70,11 @@ namespace KartRacer.Car.Controllers
             if(wheel.collider.rpm < _driveSettings.forwardMaxRpm)
             {
                 wheel.collider.brakeTorque = 0;
-                wheel.collider.motorTorque = _driveSettings.forwardAcceleration * _gasAmount;
+                wheel.info.gear = Convert.ToInt32(Mathf.Ceil((wheel.collider.rpm + 0.1f) / 
+                    _driveSettings.gearRatio));
+                wheel.collider.motorTorque = _driveSettings.forwardAcceleration * 
+                    Mathf.Log(wheel.info.gear + 1.35f, 10.0f) *
+                    _gasAmount;
             }
         }
 

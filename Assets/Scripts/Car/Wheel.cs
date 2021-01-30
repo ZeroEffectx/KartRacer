@@ -16,6 +16,7 @@ namespace KartRacer.Car
     public struct WheelInfo
     {
         public float rpm;
+        public int gear;
         public Vector3 position;
 	    public Quaternion rotation;
         public bool isFrontWheel;
