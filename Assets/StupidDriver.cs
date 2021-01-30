@@ -5,6 +5,8 @@ using UnityEngine;
 public class StupidDriver : MonoBehaviour
 {
 	WheelCollider _wheel;
+	public Vector3 _wheelPosition;
+	public Quaternion _wheelRotation;
 	void Awake()
 	{
 		_wheel = GetComponent<WheelCollider>();
@@ -14,7 +16,7 @@ public class StupidDriver : MonoBehaviour
 	{
 		if (Input.GetAxis("Vertical") > 0)
 		{
-			_wheel.motorTorque = 400;
+			_wheel.motorTorque = 50;
 			_wheel.brakeTorque = 0;
 		}
 		else if (Input.GetAxis("Vertical") < 0)
@@ -30,15 +32,22 @@ public class StupidDriver : MonoBehaviour
 
 		if (Input.GetAxis("Horizontal") < 0)
 		{
-			_wheel.steerAngle = -3;
+			_wheel.steerAngle = -30;
 		}
 		else if (Input.GetAxis("Horizontal") > 0)
 		{
-			_wheel.steerAngle = 3;
+			_wheel.steerAngle = 30;
 		}
 		else
 		{
 			_wheel.steerAngle = 0;
 		}
+
+		UpdateWheelPose();
+	}
+
+	private void UpdateWheelPose()
+	{
+		_wheel.GetWorldPose(out _wheelPosition, out _wheelRotation);
 	}
 }
